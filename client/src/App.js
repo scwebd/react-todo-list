@@ -28,6 +28,19 @@ class App extends Component {
 			.catch(err => console.log(err));
 	}
 
+	editTodo = (id, todo) => {
+		API.editTodo(id, todo)
+			.then(todo => this.getTodos())
+			.catch(err => console.log(err));		
+	}
+
+	toggleComplete = (id, complete) => {
+		const toggledValue = complete ? false : true;
+		API.editTodo(id, { complete: toggledValue })
+			.then(todo => this.getTodos())
+			.catch(err => console.log(err));
+	}
+
 	handleInputChange = event => {
 		const { name, value } = event.target;
 		this.setState({ [name]: value });
@@ -47,8 +60,8 @@ class App extends Component {
 	}
 
 	render() {
-		const remaining = this.state.todos.filter(todo => todo.complete === "false");
-		const completed = this.state.todos.filter(todo => todo.complete === "true");
+		const remaining = this.state.todos.filter(todo => !todo.complete);
+		const completed = this.state.todos.filter(todo => todo.complete);
 		return (
 			<Container>
 				<Row>
@@ -70,10 +83,10 @@ class App extends Component {
 				</Row>
 				<Row>
 					<Col md="6">
-						<List todos={remaining} />
+						<List todos={remaining} toggleComplete={this.toggleComplete} editTodo={this.editTodo} />
 					</Col>
 					<Col md="6">
-						<List todos={completed} />
+						<List todos={completed} toggleComplete={this.toggleComplete} editTodo={this.editTodo} />
 					</Col>
 				</Row>
 			</Container>
