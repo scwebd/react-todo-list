@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const todoSchema = new Schema({
   task: { type: String, required: true },
-  complete: { type: String, default: true },
+  complete: { type: String, default: false },
   priority: String,
   date: { type: Date, default: Date.now }
 });

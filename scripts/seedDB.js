@@ -5,14 +5,20 @@ const db = require("../models");
 
 mongoose.connect(
   process.env.MONGODB_URI ||
-  "mongodb://localhost/reacttodo"
+  "mongodb://localhost:27017/reacttodo"
 );
 
 const todoSeed = [
   {
-    task: "",
+    task: "Sample Task",
     complete: false,
-    priority: 0,
+    priority: 3,
+    date: new Date(Date.now())
+  },
+  {
+    task: "Completed Task",
+    complete: true,
+    priority: 2,
     date: new Date(Date.now())
   }
 ];
